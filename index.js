@@ -14,6 +14,17 @@ fetch(
     const catImgUrl = data[0].url;
     const catImg = document.createElement("img");
     catImg.src = catImgUrl;
+
+    console.log(data[0].breeds[0].description);
+    const breedName = data[0].breeds[0].name;
+    const catBreedTitle = document.createElement("h2");
+    catBreedTitle.innerText = breedName;
+
+    const breedDescription = document.createElement("p");
+    breedDescription.innerText = data[0].breeds[0].description;
+
+    catContainer.appendChild(catBreedTitle);
+    catContainer.appendChild(breedDescription);
     catContainer.appendChild(catImg);
   })
   .catch((err) => {
