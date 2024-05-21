@@ -6,3 +6,7 @@ body {
 img {
   max-width: 30rem;
 }
+
+a {
+  color: rgb(142, 202, 245);
+}

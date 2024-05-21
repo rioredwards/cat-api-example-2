@@ -1,0 +1,73 @@
+const catContainer = document.getElementById("catOrDogContainer");
+const fetchCatBtn = document.getElementById("fetchCat");
+const fetchDogBtn = document.getElementById("fetchDog");
+
+// Fetch a cat
+fetchCatBtn.addEventListener("click", () => {
+  fetch(
+    "https://api.thecatapi.com/v1/images/search?limit=1&has_breeds=1&api_key=live_YNdBDkb6hJuKn2sTeEUeI2J2p14xqL77loXkCwJJVr284EgKEM1nSrVDrdrpCZKb"
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Invalid Request");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Clear out previous cat
+      catContainer.innerHTML = "";
+
+      const catImgUrl = data[0].url;
+      const catImg = document.createElement("img");
+      catImg.src = catImgUrl;
+
+      const breedName = data[0].breeds[0].name;
+      const catBreedTitle = document.createElement("h2");
+      catBreedTitle.innerText = breedName;
+
+      const breedDescription = document.createElement("p");
+      breedDescription.innerText = data[0].breeds[0].description;
+
+      catContainer.appendChild(catBreedTitle);
+      catContainer.appendChild(breedDescription);
+      catContainer.appendChild(catImg);
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
+});
+
+// Fetch a dog
+fetchDogBtn.addEventListener("click", () => {
+  fetch(
+    "https://api.thedogapi.com/v1/images/search?limit=1&has_breeds=1&api_key=live_cJYKf789eUk5mDuCfoXp2O9FovgZd1gbIDkftrZVjGJgtRclLAkuiP9k0OnrpmMy"
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Invalid Request");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Clear out previous dog
+      catContainer.innerHTML = "";
+
+      const dogImgUrl = data[0].url;
+      const dogImg = document.createElement("img");
+      dogImg.src = dogImgUrl;
+
+      const breedName = data[0].breeds[0].name;
+      const dogBreedTitle = document.createElement("h2");
+      dogBreedTitle.innerText = breedName;
+
+      const breedTemperament = document.createElement("p");
+      breedTemperament.innerText = data[0].breeds[0].temperament;
+
+      catContainer.appendChild(dogBreedTitle);
+      catContainer.appendChild(breedTemperament);
+      catContainer.appendChild(dogImg);
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
+});
